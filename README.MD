@@ -1,10 +1,6 @@
 
-[![LinkedIn][linkedin-shield]][https://www.linkedin.com/in/bruno-rezende-67720663/]
-
-
-
 <!-- PROJECT LOGO -->
-<br />
+
 <p align="center">
   
 
