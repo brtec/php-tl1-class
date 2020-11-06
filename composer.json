@@ -1,0 +1,15 @@
+{
+    "name": "brtec/php-tl1-class",
+    "authors": [
+        {
+            "name": "Bruno Rezende",
+            "email": "brunorezende1605@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "brtec\\": "src"
+        }
+    }
+}
