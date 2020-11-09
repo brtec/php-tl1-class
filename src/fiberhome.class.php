@@ -1,11 +1,11 @@
 <?php
 /**
-* Classe de Acesso ao TL1 Server no ANM2000
+* Classe de Acesso ao TL1 Server no ANM e UNM2000
 *
 * @package    FiberHome
 * @author     Bruno Rezende
 * @version    2.0 BRTec
-* @version	  2.0 Zap ANM
+* @version	  2.0 Zap ANM/UNM
 */
 
 class FiberHome
@@ -26,7 +26,7 @@ class FiberHome
 			$login = $this->cmd("LOGIN:::CTAG::UN={$User},PWD={$Pass};");			
 			/*if ($this->CMD_OK($login)) {				
 			}else{$this->cmd("LOGIN:::CTAG::UN={$User},PWD={$Pass};");	}
-				*/ 
+			*/ 
 			$this->ipTL1 = $ipTL1;
 		}
 		
@@ -68,7 +68,7 @@ class FiberHome
 		}
 	}
 
-	 //FUNCOES BRUNO
+	 
 	 public function ListAllONUs($OLTID ='', $PONID ='')
 	 {
 		$onus = $this->cmd("LST-ONU::OLTID=$OLTID,PONID=$PONID:CTAG::;");
@@ -410,49 +410,7 @@ class FiberHome
 		if($wanData)
 		return true;
 	 }	
-	 //FIM FUNCOES BRUNO
 	 
 	 
 	 
-	
-
-	public function ONUStates(&$onuArr)
-	{
-		foreach ($onuArr as $mac => $reg) {
-			$list = $this->cmd("LST-ONUSTATE::OLTID={$this->ipTL1},PONID={$reg['PONID']},ONUIDTYPE=MAC,ONUID={$mac}:CTAG::;");
-			$header = $list[9];
-			for ($c=0; $c<count($header); $c++) {
-				$onuArr[$mac][strtoupper($header[$c])] = $list[10][$c];
-			}
-		}
-
-		return $onuArr;
-	}
-
-	public function ONUInfos(&$onuArr)
-	{
-		foreach ($onuArr as $mac => $reg) {
-			$list = $this->cmd("LST-OMDDM::OLTID={$this->ipTL1},PONID={$reg['PONID']},ONUIDTYPE=MAC,ONUID={$mac}:CTAG::;");
-			$header = $list[9];
-			for ($c=0; $c<count($header); $c++) {
-				$onuArr[$mac][strtoupper($header[$c])] = $list[10][$c];
-			}
-		}
-
-		return $onuArr;
-	}
-
-	/**
-	 * Lista as ONUs não registradas
-	 * 
-	 * NÃO FUNCIONOU!
-	 *
-	 * @param void
-	 * @return array $ret Matriz associativa usando o MAC da ONU como chave
-	 */
-	public function ONUUnregistered()
-	{
-		$list = $this->cmd("LST-UNREGONU::OLTID={$this->ipTL1}:CTAG::;");
-		var_dump($list);
-	}
 }
